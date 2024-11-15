@@ -1,0 +1,7 @@
+{
+  "printf": {
+    "only_files": {
+      "src/": ""
+    }
+  }
+}

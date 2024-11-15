@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
 load("//src:wrap.bzl", "bottle")
 
 bottle(
@@ -9,13 +10,20 @@ bottle(
 go_library(
     name = "repro_lib",
     srcs = ["main.go"],
+    data = ["//src/code.internal/repro:tar-pkg.tar.gz"],  # keep
     importpath = "code.internal/repro",
     visibility = ["//visibility:private"],
-    deps = ["//src/code.internal/repro/lib"],
 )
 
 go_binary(
     name = "repro",
     embed = [":repro_lib"],
     visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "tar-pkg",
+    srcs = ["//src/code.internal/repro/lib"],
+    extension = "tar.gz",
+    remap_paths = {"": "bin"},
 )
