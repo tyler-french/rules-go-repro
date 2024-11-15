@@ -1,0 +1,5 @@
+bazel-bin
+bazel-out
+bazel-rules-go-repro
+bazel-testlogs
+MODULE.bazel.lock

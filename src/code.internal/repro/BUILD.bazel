@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("//src:wrap.bzl", "bottle")
+
+bottle(
+    name = "test",
+    srcs = ["repro"],
+)
+
+go_library(
+    name = "repro_lib",
+    srcs = ["main.go"],
+    importpath = "code.internal/repro",
+    visibility = ["//visibility:private"],
+    deps = ["//src/code.internal/repro/lib"],
+)
+
+go_binary(
+    name = "repro",
+    embed = [":repro_lib"],
+    visibility = ["//visibility:public"],
+)
